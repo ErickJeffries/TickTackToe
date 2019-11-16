@@ -22,10 +22,11 @@ namespace TickTackToeGameLibrary
 		public int BoardRowCount { get => board.GetLength(0); }
 		public int BoardColumnCount { get => board.GetLength(1); }
 
-		public virtual TickTackToeToken GetValueAtLocation(int row, int column)
+		public TickTackToeBoard()
 		{
-			return board[row, column];
 		}
+
+		public virtual TickTackToeToken GetValueAtLocation(int row, int column) => board[row, column];
 
 		public virtual bool AnyMovesLeft()
 		{
@@ -35,23 +36,6 @@ namespace TickTackToeGameLibrary
 					return true;
 			}
 			return false;
-		}
-
-		public static string GetDescription(Enum en)
-		{
-			Type type = en.GetType();
-			MemberInfo[] memInfo = type.GetMember(en.ToString());
-			if (memInfo != null && memInfo.Length > 0)
-			{
-				object[] attrs = memInfo[0].GetCustomAttributes(typeof(BoardDisplay), false);
-				if (attrs != null && attrs.Length > 0)
-					return ((BoardDisplay)attrs[0]).Text;
-			}
-			return en.ToString();
-		}
-
-		public TickTackToeBoard()
-		{
 		}
 
 		public virtual void PlaceTokenOnBoard(TickTackToeToken token, int row, int column)

@@ -14,11 +14,11 @@ namespace TickTackToeConsole
 		public override void DisplayBoard()
 		{
 			Console.WriteLine("Display board here");
-			Console.WriteLine($"{GetDescription(board[0, 0])}|{GetDescription(board[0, 1])}|{GetDescription(board[0, 2])}");
+			Console.WriteLine($"{BoardDisplay.GetDescription(board[0, 0])}|{BoardDisplay.GetDescription(board[0, 1])}|{BoardDisplay.GetDescription(board[0, 2])}");
 			Console.WriteLine($"_______");
-			Console.WriteLine($"{GetDescription(board[1, 0])}|{GetDescription(board[1, 1])}|{GetDescription(board[1, 2])}");
+			Console.WriteLine($"{BoardDisplay.GetDescription(board[1, 0])}|{BoardDisplay.GetDescription(board[1, 1])}|{BoardDisplay.GetDescription(board[1, 2])}");
 			Console.WriteLine($"_______");
-			Console.WriteLine($"{GetDescription(board[2, 0])}|{GetDescription(board[2, 1])}|{GetDescription(board[2, 2])}");
+			Console.WriteLine($"{BoardDisplay.GetDescription(board[2, 0])}|{BoardDisplay.GetDescription(board[2, 1])}|{BoardDisplay.GetDescription(board[2, 2])}");
 		}
 
 		public override bool AnyMovesLeft()
@@ -51,7 +51,7 @@ namespace TickTackToeConsole
 
 		public override void PlaceTokenOnBoard(TickTackToeToken token, int row, int column)
 		{
-			Console.WriteLine($"Token: {token} row: {row} column: {column}");
+			Console.WriteLine($"Place {token} at row {row}, column {column}");
 			base.PlaceTokenOnBoard(token, row, column);
 		}
 	}

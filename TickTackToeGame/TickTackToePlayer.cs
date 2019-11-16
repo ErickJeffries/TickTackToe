@@ -12,6 +12,10 @@ namespace TickTackToeGameLibrary
 		public TickTackToePlayer(string name, TickTackToeBoard.TickTackToeToken token)
 		{
 			Name = name;
+
+			if (token == TickTackToeBoard.TickTackToeToken.Available)
+				throw new InvalidOperationException($"{TickTackToeBoard.TickTackToeToken.Available} is not a valid token");
+
 			Token = token;
 		}
 
