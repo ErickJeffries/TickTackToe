@@ -37,80 +37,163 @@ namespace TickTackToeGameLibraryTest
 		public void Board_is_constructed_with_all_available_slots()
 		{
 			//Arrange
+			var board = new StandardTestBoard();
+			var result = true;
 
 			//Act
+			foreach (var playableSpace in board.Board)
+			{
+				if (playableSpace != TickTackToeBoard.TickTackToeToken.Available)
+					result = false;
+			}
 
 			//Assert
+			Assert.IsTrue(result);
 		}
 
 		[TestMethod]
 		public void Board_gets_constructed_with_3_by_3_dimensions()
 		{
 			//Arrange
+			var board = new StandardTestBoard();
 
 			//Act
+			var columns = board.BoardColumnCount;
+			var rows = board.BoardRowCount;
 
 			//Assert
+			Assert.IsTrue(columns == 3);
+			Assert.IsTrue(rows == 3);
 		}
 
 		[TestMethod]
 		public void GetValueAtLocation_returns_accurate_value()
 		{
 			//Arrange
+			var board = new StandardTestBoard();
+			var token = TickTackToeBoard.TickTackToeToken.O;
+			int expectedRow = 1;
+			int expectedColumn = 2;
+			board.PlaceTokenOnBoard(token, expectedRow, expectedColumn);
 
 			//Act
+			var value = board.GetValueAtLocation(expectedRow, expectedColumn);
 
 			//Assert
+			Assert.AreEqual(token, value);
 		}
 
 		[TestMethod]
-		public void GetValueAtLocation_throws_error_when_invalid_location_provided()
+		public void GetValueAtLocation_throws_IndexOutOfRangeException_when_invalid_location_provided()
 		{
 			//Arrange
+			var board = new StandardTestBoard();
 
-			//Act
-
-			//Assert
+			//Act & Assert
+			Assert.ThrowsException<IndexOutOfRangeException>(() => board.GetValueAtLocation(4, 4));
 		}
 
 		[TestMethod]
 		public void AnyMovesLeft_is_true_when_board_still_has_spaces_available()
 		{
 			//Arrange
+			var board = new StandardTestBoard();
 
 			//Act
+			var result = board.AnyMovesLeft();
 
 			//Assert
+			Assert.IsTrue(result);
 		}
 
 		[TestMethod]
 		public void AnyMovesLeft_is_false_when_board_still_has_no_spaces_available()
 		{
 			//Arrange
+			var board = new StandardTestBoard();
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.X, 0, 0);
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.X, 0, 1);
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.X, 0, 2);
+
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.O, 1, 0);
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.O, 1, 1);
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.O, 1, 2);
+
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.O, 2, 0);
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.O, 2, 1);
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.O, 2, 2);
 
 			//Act
+			var result = board.AnyMovesLeft();
 
 			//Assert
+			Assert.IsFalse(result);
 		}
 
 		[TestMethod]
 		public void PlaceTokenOnBoard_puts_token_in_available_spot_on_board()
 		{
 			//Arrange
+			var board = new StandardTestBoard();
+			int column = 1;
+			int row = 1;
+			var valueBeforePlacement = board.GetValueAtLocation(row, column);
 
 			//Act
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.O, row, column);
+			var valueAfterPlacement = board.GetValueAtLocation(row, column);
 
 			//Assert
+			Assert.AreEqual(TickTackToeBoard.TickTackToeToken.Available, valueBeforePlacement);
+			Assert.AreNotEqual(valueBeforePlacement, valueAfterPlacement);
+		}
+
+		[TestMethod]
+		public void PlaceTokenOnBoard_puts_token_in_correct_spot_on_board()
+		{
+			//Arrange
+			var board = new StandardTestBoard();
+			int column = 1;
+			int row = 1;
+			var valueBeforePlacement = board.GetValueAtLocation(row, column);
+
+			//Act
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.O, row, column);
+			var valueAfterPlacement = board.GetValueAtLocation(row, column);
+
+			//Assert
+			Assert.AreNotEqual(valueBeforePlacement, valueAfterPlacement);
+			//TODO check to make sure no other elements in the array were changed (will need to use a fake/moq for this)
+		}
+
+		[TestMethod]
+		public void PlaceTokenOnBoard_puts_correct_token_in_spot_on_board()
+		{
+			//Arrange
+			var board = new StandardTestBoard();
+			int column = 1;
+			int row = 1;
+			var token = TickTackToeBoard.TickTackToeToken.O;
+
+			//Act
+			board.PlaceTokenOnBoard(token, row, column);
+			var valueAfterPlacement = board.GetValueAtLocation(row, column);
+
+			//Assert
+			Assert.AreEqual(token, valueAfterPlacement);
 		}
 
 		[TestMethod]
 		public void PlaceTokenOnBoard_throws_exception_when_spot_not_available_on_board()
 		{
 			//Arrange
+			var board = new StandardTestBoard();
 
 			//Act
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.X, 1, 1);
 
 			//Assert
+			Assert.ThrowsException<InvalidOperationException>(() => board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.O, 1, 1));
 		}
 
 		[TestMethod]
@@ -201,6 +284,15 @@ namespace TickTackToeGameLibraryTest
 			//Act
 
 			//Assert
+		}
+
+		private class StandardTestBoard : TickTackToeBoard
+		{
+			public TickTackToeToken[,] Board { get => base.board; }
+			public override void DisplayBoard()
+			{
+				throw new NotImplementedException();
+			}
 		}
 
 		private class Testboard : TickTackToeBoard
