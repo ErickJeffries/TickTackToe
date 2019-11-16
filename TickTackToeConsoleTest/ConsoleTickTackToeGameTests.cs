@@ -6,7 +6,7 @@ using System.Text;
 namespace TickTackToeConsoleTest
 {
 	[TestClass]
-	class ConsoleTickTackToeGameTests
+	public class ConsoleTickTackToeGameTests
 	{
 		[TestMethod]
 		public void TestMethod1()

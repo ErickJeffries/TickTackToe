@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TickTackToeGameLibrary;
 
 namespace TickTackToeGameLibraryTest
 {
 	[TestClass]
-	class TickTackToeGameTests
+	public class TickTackToeGameTests
 	{
 		[TestMethod]
 		public void TestMethod1()

@@ -7,7 +7,7 @@ using TickTackToeGameLibrary;
 namespace TickTackToeGameLibraryTest
 {
 	[TestClass]
-	class TickTackToePlayerTests
+	public class TickTackToePlayerTests
 	{
 		[TestMethod]
 		public void ToString_Displays_Name_And_token()
@@ -30,10 +30,38 @@ namespace TickTackToeGameLibraryTest
 		{
 			//Arrange
 			string name = "Short Name";
-			var token = TickTackToeBoard.TickTackToeToken.O;
+			var token = TickTackToeBoard.TickTackToeToken.Available;
 
 			//Act & Assert
 			Assert.ThrowsException<InvalidOperationException>(() => new TickTackToePlayer(name, token));
+		}
+
+		[TestMethod]
+		public void Can_create_player_with_X_token()
+		{
+			//Arrange
+			string name = "Short Name";
+			var token = TickTackToeBoard.TickTackToeToken.X;
+
+			//Act
+			var player = new TickTackToePlayer(name, token);
+
+			//Assert
+			Assert.IsTrue(player.Token == token);
+		}
+
+		[TestMethod]
+		public void Can_create_player_with_O_token()
+		{
+			//Arrange
+			string name = "Short Name";
+			var token = TickTackToeBoard.TickTackToeToken.O;
+
+			//Act
+			var player = new TickTackToePlayer(name, token);
+
+			//Assert
+			Assert.IsTrue(player.Token == token);
 		}
 	}
 }
