@@ -1,9 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TickTackToeGameLibraryTest
+namespace TickTackToeConsoleTest
 {
 	[TestClass]
-	public class UnitTest1
+	public class ConsoleTickTackToeBoardTests
 	{
 		[TestMethod]
 		public void TestMethod1()
