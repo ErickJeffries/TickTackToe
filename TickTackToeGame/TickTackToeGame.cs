@@ -21,6 +21,8 @@ namespace TickTackToeGameLibrary
 
 		public virtual TickTackToePlayer ChangeActivePlayer(TickTackToePlayer player)
 		{
+			if (player == null || Player1 == null || Player2 == null)
+				throw new InvalidOperationException("Players have not been setup");
 			if (player == Player1)
 				return Player2;
 			return Player1;
@@ -60,7 +62,7 @@ namespace TickTackToeGameLibrary
 		}
 		private bool isWinningColumn(int column, TickTackToeBoard.TickTackToeToken playerTurnToken)
 		{
-			for (var row = 1; row < Board.BoardRowCount; row++)
+			for (var row = 0; row < Board.BoardRowCount; row++)
 				if (Board.GetValueAtLocation(row, column) != playerTurnToken) return false;
 
 			return true;
@@ -90,11 +92,11 @@ namespace TickTackToeGameLibrary
 
 		public virtual TickTackToeGameResult CheckTurnResult(TickTackToeBoard.TickTackToeToken playerTurnToken)
 		{
-			if (!Board.AnyMovesLeft())
-				return TickTackToeGameResult.CatsGame;
-
 			if (this.HasGameBeenWon(playerTurnToken))
 				return GetGameWinResultFromToken(playerTurnToken);
+
+			if (!Board.AnyMovesLeft())
+				return TickTackToeGameResult.CatsGame;
 
 			return TickTackToeGameResult.InProgress;
 		}
