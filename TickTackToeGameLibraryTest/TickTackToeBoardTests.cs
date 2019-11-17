@@ -200,90 +200,119 @@ namespace TickTackToeGameLibraryTest
 		public void isLocationTaken_returns_true_if_taken_by_X()
 		{
 			//Arrange
+			var board = new Testboard(TickTackToeBoard.TickTackToeToken.Available);
+			int column = 2;
+			int row = 1;
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.X, row, column);
 
 			//Act
+			var result = board.isLocationTakenWrapper(row, column);
 
 			//Assert
+			Assert.IsTrue(result);
 		}
 
 		[TestMethod]
 		public void isLocationTaken_returns_true_if_taken_by_O()
 		{
 			//Arrange
+			var board = new Testboard(TickTackToeBoard.TickTackToeToken.Available);
+			int column = 2;
+			int row = 1;
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.O, row, column);
 
 			//Act
+			var result = board.isLocationTakenWrapper(row, column);
 
 			//Assert
+			Assert.IsTrue(result);
 		}
 
 		[TestMethod]
 		public void isLocationTaken_returns_false_if_not_taken()
 		{
 			//Arrange
+			var board = new Testboard(TickTackToeBoard.TickTackToeToken.Available);
 
-			//Act
+			//Act (no action needed)
 
 			//Assert
+			Assert.IsFalse(board.isLocationTakenWrapper(1, 1));
 		}
 
 		[TestMethod]
 		public void isLocationOnBoard_returns_true_if_location_on_board()
 		{
 			//Arrange
+			var board = new Testboard(TickTackToeBoard.TickTackToeToken.Available);
 
-			//Act
+			//Act (no action needed)
 
 			//Assert
+			Assert.IsTrue(board.isLocationOnBoardWrapper(0, 0));
 		}
 
 		[TestMethod]
 		public void isLocationOnBoard_returns_false_if_row_off_board()
 		{
 			//Arrange
+			var board = new Testboard(TickTackToeBoard.TickTackToeToken.Available);
 
-			//Act
+			//Act (no action needed)
 
 			//Assert
+			Assert.IsFalse(board.isLocationOnBoardWrapper(Testboard.RowCount+1, 0));
 		}
 
 		[TestMethod]
 		public void isLocationOnBoard_returns_false_if_column_off_board()
 		{
 			//Arrange
+			var board = new Testboard(TickTackToeBoard.TickTackToeToken.Available);
 
 			//Act
 
 			//Assert
+			Assert.IsFalse(board.isLocationOnBoardWrapper(0, Testboard.ColumnCount+1));
 		}
 
 		[TestMethod]
 		public void isLocationAvailableToPlay_returns_false_if_location_off_board()
 		{
 			//Arrange
+			var board = new Testboard(TickTackToeBoard.TickTackToeToken.Available);
 
 			//Act
 
 			//Assert
+			Assert.IsFalse(board.isLocationAvailableToPlayWrapper(Testboard.RowCount+1, Testboard.ColumnCount + 1));
 		}
 
 		[TestMethod]
 		public void isLocationAvailableToPlay_returns_false_if_location_is_taken()
 		{
 			//Arrange
+			var board = new Testboard(TickTackToeBoard.TickTackToeToken.Available);
+			int column = 2;
+			int row = 1;
+			board.PlaceTokenOnBoard(TickTackToeBoard.TickTackToeToken.O, row, column);
 
 			//Act
 
 			//Assert
+			Assert.IsFalse(board.isLocationAvailableToPlayWrapper(row, column));
 		}
 
 		[TestMethod]
 		public void isLocationAvailableToPlay_returns_true_if_location_on_board_and_location_is_not_taken()
 		{
 			//Arrange
+			var board = new Testboard(TickTackToeBoard.TickTackToeToken.Available);
 
 			//Act
 
 			//Assert
+			Assert.IsTrue(board.isLocationAvailableToPlayWrapper(0,0));
 		}
 
 		private class StandardTestBoard : TickTackToeBoard

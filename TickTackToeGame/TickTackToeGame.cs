@@ -94,18 +94,21 @@ namespace TickTackToeGameLibrary
 				return TickTackToeGameResult.CatsGame;
 
 			if (this.HasGameBeenWon(playerTurnToken))
-			{
-				switch (playerTurnToken)
-				{
-					case TickTackToeBoard.TickTackToeToken.O:
-						return TickTackToeGameResult.OWins;
-					case TickTackToeBoard.TickTackToeToken.X:
-						return TickTackToeGameResult.XWins;
-					default: throw new ArgumentException(message: "invalid enum value", paramName: nameof(playerTurnToken));
-				}
-			}
+				return GetGameWinResultFromToken(playerTurnToken);
 
 			return TickTackToeGameResult.InProgress;
+		}
+
+		private TickTackToeGameResult GetGameWinResultFromToken(TickTackToeBoard.TickTackToeToken playerTurnToken)
+		{
+			switch (playerTurnToken)
+			{
+				case TickTackToeBoard.TickTackToeToken.O:
+					return TickTackToeGameResult.OWins;
+				case TickTackToeBoard.TickTackToeToken.X:
+					return TickTackToeGameResult.XWins;
+				default: throw new ArgumentException(message: "invalid enum value", paramName: nameof(playerTurnToken));
+			}
 		}
 
 		public abstract void StartGame();
