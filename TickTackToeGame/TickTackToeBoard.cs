@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
+
+//TODO make the board bigger
+//TODO put the coordinance on the grid
 namespace TickTackToeGameLibrary
 {
 	public abstract class TickTackToeBoard
